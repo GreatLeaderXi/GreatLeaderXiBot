@@ -127,7 +127,7 @@
                 }
 
                 sb.AppendLine();
-                sb.AppendLine("+500 социальный рейтинг 红龙习近平.");
+                sb.AppendLine("+20 социальный рейтинг 红龙习近平.");
 
                 await _botClient.SendChatActionAsync(chatId, ChatAction.Typing);
                 await _botClient.EditMessageTextAsync(

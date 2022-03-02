@@ -22,11 +22,12 @@ builder.Services.AddHttpClient("tgwebhook")
 builder.Services.AddScoped<IOutlookConnector, OutlookConnector>(x => 
     new OutlookConnector(exchangeConfig.ExchangeHost, exchangeConfig.ExchangeUsername, exchangeConfig.ExchangePassword));
 
-builder.Services.AddMediatR(typeof(MessageReceivedEvent).Assembly);
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.OutputFormatterMemoryBufferThreshold = 48 * 1024;
 });
+
+builder.Services.AddMediatR(typeof(MessageReceivedEvent).Assembly);
 
 var app = builder.Build();
 
@@ -40,7 +41,7 @@ app.UseRouting();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(name: "tgwebhook", pattern: $"bot/{telegramConfig.Token}", new { controller = "TelegramWebhookController", action = "Post" });
+    endpoints.MapControllerRoute(name: "tgwebhook", pattern: $"bot/{telegramConfig.Token}", new { controller = "TelegramWebhook", action = "Post" });
     endpoints.MapControllers();
 });
 
