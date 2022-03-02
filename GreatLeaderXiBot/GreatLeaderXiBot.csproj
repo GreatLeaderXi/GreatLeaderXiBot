@@ -9,7 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Telegram.Bot" Version="17.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GreatLeaderXiBot.Domain.Core\GreatLeaderXiBot.Domain.Core.csproj" />
+    <ProjectReference Include="..\GreatLeaderXiBot.Domain\GreatLeaderXiBot.Domain.csproj" />
   </ItemGroup>
 
 </Project>
