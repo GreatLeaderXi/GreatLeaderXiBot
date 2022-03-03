@@ -4,6 +4,6 @@
 
     public interface IOutlookConnector
     {
-        List<Appointment> GetAppointments(DateTime dateFrom, DateTime dateTo);
+        Task<List<Appointment>> GetAppointmentsAsync(DateTime dateFrom, DateTime dateTo);
     }
 }

@@ -34,9 +34,9 @@
 
         #region Methods
 
-        public List<Appointment> GetAppointments(DateTime dateFrom, DateTime dateTo)
+        public async Task<List<Appointment>> GetAppointmentsAsync(DateTime dateFrom, DateTime dateTo)
         {
-            var calendar = CalendarFolder.Bind(_exchangeService, WellKnownFolderName.Calendar, new PropertySet());
+            var calendar = await CalendarFolder.Bind(_exchangeService, WellKnownFolderName.Calendar, new PropertySet());
             var cView = new CalendarView(dateFrom, dateTo)
             {
                 PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End)
@@ -44,7 +44,8 @@
 
             try
             {
-                return calendar.FindAppointments(cView).ToList();
+                var appointments = await calendar.FindAppointments(cView);
+                return appointments.ToList();
             }
             catch
             {

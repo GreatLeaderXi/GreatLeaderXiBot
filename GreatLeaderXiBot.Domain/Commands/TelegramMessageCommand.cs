@@ -115,13 +115,11 @@
             {
                 await _botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
 
-                var appointments = _outlookConnector.GetAppointments(DateTime.Today, DateTime.Today.AddDays(1));
-
                 var sb = new StringBuilder("*Социальность рейтинг поднятие:*");
                 sb.AppendLine();
                 sb.AppendLine();
 
-                foreach (var appointment in appointments)
+                foreach (var appointment in await _outlookConnector.GetAppointmentsAsync(DateTime.Today, DateTime.Today.AddDays(1)))
                 {
                     sb.AppendLine($"{appointment.Start:dd/MM/yyyy HH:mm}-{appointment.End: HH:mm}   _{appointment.Subject}_");
                 }
