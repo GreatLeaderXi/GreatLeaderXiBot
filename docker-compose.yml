@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  greatleaderxibot:
+    image: ${DOCKER_REGISTRY-}greatleaderxibot
+    build:
+      context: .
+      dockerfile: GreatLeaderXiBot/Dockerfile

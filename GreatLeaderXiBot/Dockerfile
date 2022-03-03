@@ -3,11 +3,13 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["GreatLeaderXiBot/GreatLeaderXiBot.csproj", "GreatLeaderXiBot/"]
+COPY ["GreatLeaderXiBot.Domain/GreatLeaderXiBot.Domain.csproj", "GreatLeaderXiBot.Domain/"]
+COPY ["GreatLeaderXiBot.Common/GreatLeaderXiBot.Common.csproj", "GreatLeaderXiBot.Common/"]
+COPY ["GreatLeaderXiBot.Domain.Core/GreatLeaderXiBot.Domain.Core.csproj", "GreatLeaderXiBot.Domain.Core/"]
 RUN dotnet restore "GreatLeaderXiBot/GreatLeaderXiBot.csproj"
 COPY . .
 WORKDIR "/src/GreatLeaderXiBot"
