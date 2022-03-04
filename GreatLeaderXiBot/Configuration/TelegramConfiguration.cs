@@ -1,9 +1,8 @@
-﻿namespace GreatLeaderXiBot.Configuration
-{
-    public class TelegramConfiguration
-    {
-        public string Host { get; init; }
+﻿namespace GreatLeaderXiBot.Configuration;
 
-        public string Token { get; init; }
-    }
+public class TelegramConfiguration
+{
+    public string Host { get; init; } = null!;
+
+    public string Token { get; init; } = null!;
 }

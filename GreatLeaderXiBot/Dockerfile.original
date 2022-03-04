@@ -13,8 +13,6 @@ COPY ["GreatLeaderXiBot/GreatLeaderXiBot.csproj", "GreatLeaderXiBot/"]
 COPY ["GreatLeaderXiBot.Domain/GreatLeaderXiBot.Domain.csproj", "GreatLeaderXiBot.Domain/"]
 COPY ["GreatLeaderXiBot.Common/GreatLeaderXiBot.Common.csproj", "GreatLeaderXiBot.Common/"]
 COPY ["GreatLeaderXiBot.Domain.Core/GreatLeaderXiBot.Domain.Core.csproj", "GreatLeaderXiBot.Domain.Core/"]
-COPY ["GreatLeaderXiBot.Infrastructure/GreatLeaderXiBot.Infrastructure.csproj", "GreatLeaderXiBot.Infrastructure/"]
-COPY ["GreatLeaderXiBot.Domain.Telegram/GreatLeaderXiBot.Domain.Telegram.csproj", "GreatLeaderXiBot.Domain.Telegram/"]
 RUN dotnet restore "GreatLeaderXiBot/GreatLeaderXiBot.csproj"
 COPY . .
 WORKDIR "/src/GreatLeaderXiBot"

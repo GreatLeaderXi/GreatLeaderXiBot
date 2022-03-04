@@ -1,21 +1,20 @@
-﻿namespace GreatLeaderXiBot.Common.Extensions
-{
-    using System.Text;
+﻿namespace GreatLeaderXiBot.Common.Extensions;
 
-    public static class StringBuilderExtensions
+using System.Text;
+
+public static class StringBuilderExtensions
+{
+    public static string ToStringAndEscape(this StringBuilder sb)
     {
-        public static string Escape(this StringBuilder sb)
-        {
-            return sb
-                .Replace(".", "\\.")
-                .Replace("-", "\\-")
-                .Replace("+", "\\+")
-                .Replace("!", "\\!")
-                .Replace("<", "\\<")
-                .Replace(">", "\\>")
-                .Replace("(", "\\(")
-                .Replace(")", "\\)")
-                .ToString();
-        }
+        return sb
+            .Replace(".", "\\.")
+            .Replace("-", "\\-")
+            .Replace("+", "\\+")
+            .Replace("!", "\\!")
+            .Replace("<", "\\<")
+            .Replace(">", "\\>")
+            .Replace("(", "\\(")
+            .Replace(")", "\\)")
+            .ToString();
     }
 }

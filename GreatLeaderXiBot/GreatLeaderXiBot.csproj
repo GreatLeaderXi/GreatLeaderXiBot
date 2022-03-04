@@ -17,8 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GreatLeaderXiBot.Common\GreatLeaderXiBot.Common.csproj" />
     <ProjectReference Include="..\GreatLeaderXiBot.Domain.Core\GreatLeaderXiBot.Domain.Core.csproj" />
+    <ProjectReference Include="..\GreatLeaderXiBot.Domain.Telegram\GreatLeaderXiBot.Domain.Telegram.csproj" />
     <ProjectReference Include="..\GreatLeaderXiBot.Domain\GreatLeaderXiBot.Domain.csproj" />
+    <ProjectReference Include="..\GreatLeaderXiBot.Infrastructure\GreatLeaderXiBot.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

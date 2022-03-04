@@ -3,10 +3,8 @@ using Telegram.Bot;
 
 using GreatLeaderXiBot;
 using GreatLeaderXiBot.Configuration;
-
-using GreatLeaderXiBot.Domain.Events;
-using GreatLeaderXiBot.Domain.Outlook;
-using GreatLeaderXiBot.Domain.Core.Contracts;
+using GreatLeaderXiBot.Common.Outlook;
+using GreatLeaderXiBot.Domain.Telegram.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +25,7 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.OutputFormatterMemoryBufferThreshold = 48 * 1024;
 });
 
-builder.Services.AddMediatR(typeof(MessageReceivedEvent).Assembly);
+builder.Services.AddMediatR(typeof(TelegramMessageEvent).Assembly);
 
 var app = builder.Build();
 
