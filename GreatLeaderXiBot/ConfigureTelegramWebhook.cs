@@ -1,9 +1,9 @@
-﻿namespace GreatLeaderXiBot;
-
-using Telegram.Bot;
+﻿using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 
-using Configuration;
+using GreatLeaderXiBot.Common.Configuration;
+
+namespace GreatLeaderXiBot;
 
 public class ConfigureTelegramWebhook : IHostedService
 {

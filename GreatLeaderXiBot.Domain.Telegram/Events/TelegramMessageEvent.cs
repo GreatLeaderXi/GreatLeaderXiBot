@@ -6,6 +6,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
 using GreatLeaderXiBot.Common.Constants;
+using GreatLeaderXiBot.Common.Configuration;
 using GreatLeaderXiBot.Domain.Telegram.Commands;
 
 namespace GreatLeaderXiBot.Domain.Telegram.Events;
@@ -14,19 +15,21 @@ namespace GreatLeaderXiBot.Domain.Telegram.Events;
 /// Event for incoming Telegram messages
 /// </summary>
 /// <param name="Payload"></param>
-public record TelegramMessageEvent(Update Payload) : INotification;
+public record TelegramMessageEvent(Update Payload, ExchangeConfiguration ExchangeConfiguration) : INotification;
 
 /// <summary>
 /// Handler for incoming Telegram messages
 /// </summary>
-public record TelegramMessageEventHandler(IMediator Mediator, ILogger<TelegramMessageEventHandler> Logger) : INotificationHandler<TelegramMessageEvent>
+public record TelegramMessageEventHandler(
+    IMediator Mediator, 
+    ILogger<TelegramMessageEventHandler> Logger) : INotificationHandler<TelegramMessageEvent>
 {
     public async Task Handle(TelegramMessageEvent @event, CancellationToken cancellationToken)
     {
         var handler = @event.Payload.Type switch
         {
             UpdateType.Message => OnMessageReceivedAsync(@event.Payload.Message!),
-            UpdateType.CallbackQuery => OnCallbackQueryReceivedAsync(@event.Payload.CallbackQuery!),
+            UpdateType.CallbackQuery => OnCallbackQueryReceivedAsync(@event.Payload.CallbackQuery!, @event.ExchangeConfiguration!),
 
             _ => Unit.Task
         };
@@ -48,7 +51,7 @@ public record TelegramMessageEventHandler(IMediator Mediator, ILogger<TelegramMe
         }
     }
 
-    private async Task OnCallbackQueryReceivedAsync(CallbackQuery callbackQuery)
+    private async Task OnCallbackQueryReceivedAsync(CallbackQuery callbackQuery, ExchangeConfiguration exchangeConfiguration)
     {
         Logger.LogInformation($"Receive callback query from Telegram with payload: {callbackQuery.Data}");
 
@@ -58,7 +61,7 @@ public record TelegramMessageEventHandler(IMediator Mediator, ILogger<TelegramMe
 
         if (callbackQuery.Data == TelegramCallbackIds.GET_OUTLOOK_APPOINTMENTS)
         {
-            await Mediator.Send(new TelegramAppointmentsCommand(callbackQuery));
+            await Mediator.Send(new TelegramAppointmentsCommand(callbackQuery, exchangeConfiguration));
         }
     }
 }

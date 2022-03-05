@@ -2,23 +2,22 @@ using MediatR;
 using Telegram.Bot;
 
 using GreatLeaderXiBot;
-using GreatLeaderXiBot.Configuration;
+
 using GreatLeaderXiBot.Common.Outlook;
+using GreatLeaderXiBot.Common.Configuration;
+
 using GreatLeaderXiBot.Domain.Telegram.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var botConfig = builder.Configuration.GetSection("XiBotConfiguration").Get<XiBotConfiguration>();
-
-var exchangeConfig = botConfig.ExchangeConfiguration;
 var telegramConfig = botConfig.TelegramConfiguration;
 
 builder.Services.AddHostedService<ConfigureTelegramWebhook>();
 builder.Services.AddHttpClient("tgwebhook")
                 .AddTypedClient<ITelegramBotClient>(httpClient => new TelegramBotClient(telegramConfig.Token, httpClient));
 
-builder.Services.AddScoped<IOutlookConnector, OutlookConnector>(x => 
-    new OutlookConnector(exchangeConfig.ExchangeHost, exchangeConfig.ExchangeUsername, exchangeConfig.ExchangePassword));
+builder.Services.AddScoped<IOutlookConnector, OutlookConnector>();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {

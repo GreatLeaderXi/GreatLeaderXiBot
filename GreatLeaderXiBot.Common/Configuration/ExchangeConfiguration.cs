@@ -1,4 +1,4 @@
-﻿namespace GreatLeaderXiBot.Configuration;
+﻿namespace GreatLeaderXiBot.Common.Configuration;
 
 public class ExchangeConfiguration
 {

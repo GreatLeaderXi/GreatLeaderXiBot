@@ -1,22 +1,29 @@
-﻿namespace GreatLeaderXiBot.Controllers;
-
-using MediatR;
+﻿using MediatR;
 
 using Microsoft.AspNetCore.Mvc;
 
 using Telegram.Bot.Types;
 using Telegram.Bot.Exceptions;
 
-using Domain.Telegram.Events;
+using GreatLeaderXiBot.Common.Configuration;
+using GreatLeaderXiBot.Domain.Telegram.Events;
+
+namespace GreatLeaderXiBot.Controllers;
 
 public class TelegramWebhookController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> Post([FromServices] IMediator mediator, [FromServices] ILogger<TelegramWebhookController> logger, [FromBody] Update update)
+    public async Task<IActionResult> Post(
+        [FromServices] IConfiguration configuration,
+        [FromServices] IMediator mediator, 
+        [FromServices] ILogger<TelegramWebhookController> logger, 
+        [FromBody] Update update)
     {
+        var botConfig = configuration.GetSection("XiBotConfiguration").Get<XiBotConfiguration>();
+
         try
         {
-            await mediator.Publish(new TelegramMessageEvent(update));
+            await mediator.Publish(new TelegramMessageEvent(update, botConfig.ExchangeConfiguration));
         }
         catch (Exception exception)
         {
