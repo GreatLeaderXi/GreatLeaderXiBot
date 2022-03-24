@@ -6,6 +6,8 @@ using System.Security.Cryptography.X509Certificates;
 
 using Microsoft.Exchange.WebServices.Data;
 
+using NodaTime;
+
 using Dtos;
 
 public class OutlookConnector : IOutlookConnector
@@ -15,7 +17,7 @@ public class OutlookConnector : IOutlookConnector
         ServicePointManager.ServerCertificateValidationCallback = CertificateValidationCallBack;
     }
 
-    public async Task<IEnumerable<OutlookAppointmentDto>> GetAppointmentsAsync(DateTime dateFrom, DateTime dateTo, OutlookSettings settings)
+    public async Task<IEnumerable<OutlookAppointmentDto>> GetAppointmentsAsync(ZonedDateTime dateFrom, ZonedDateTime dateTo, OutlookSettings settings)
     {
         var exchangeService = new ExchangeService()
         {
@@ -25,15 +27,19 @@ public class OutlookConnector : IOutlookConnector
         };
 
         var calendar = await CalendarFolder.Bind(exchangeService, WellKnownFolderName.Calendar, new PropertySet());
-        var cView = new CalendarView(dateFrom, dateTo)
+        var cView = new CalendarView(dateFrom.ToDateTimeUtc(), dateTo.ToDateTimeUtc())
         {
-            PropertySet = new PropertySet(AppointmentSchema.Subject, AppointmentSchema.Start, AppointmentSchema.End)
+            PropertySet = new PropertySet(
+                AppointmentSchema.Subject, 
+                AppointmentSchema.Start, 
+                AppointmentSchema.End,
+                AppointmentSchema.Location)
         };
 
         try
         {
             var appointments = await calendar.FindAppointments(cView);
-            return appointments.Select(x => new OutlookAppointmentDto { Subject = x.Subject, Start = x.Start, End = x.End });
+            return appointments.Select(x => new OutlookAppointmentDto { Subject = x.Subject, Start = x.Start, End = x.End, Location = x.Location });
         }
         catch
         {

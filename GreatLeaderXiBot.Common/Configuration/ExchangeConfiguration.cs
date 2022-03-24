@@ -8,5 +8,7 @@ public class ExchangeConfiguration
 
     public string ExchangePassword { get; init; } = null!;
 
-    public int UtcOffset { get; init; }
+    public int UserUtcOffset { get; init; }
+
+    public int AppointmentsUtcOffset { get; init; }
 }

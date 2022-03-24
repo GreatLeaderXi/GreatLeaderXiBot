@@ -23,32 +23,32 @@ public record TelegramStartCommand(Message Message) : IRequest;
 /// <summary>
 /// Greetings message handler
 /// </summary>
-public record TelegramStartCommandHandler(ITelegramBotClient BotClient, ILogger<TelegramStartCommandHandler> Logger) : IRequestHandler<TelegramStartCommand>
+public record TelegramStartCommandHandler(ITelegramBotClient _bot, ILogger<TelegramStartCommandHandler> _logger) : IRequestHandler<TelegramStartCommand>
 {
     public async Task<Unit> Handle(TelegramStartCommand command, CancellationToken cancellationToken)
     {
         var chatId = command.Message.Chat.Id;
 
-        await BotClient.SendChatActionAsync(chatId, ChatAction.Typing, cancellationToken);
-        await BotClient.SendStickerAsync(
+        await _bot.SendChatActionAsync(chatId, ChatAction.Typing, cancellationToken);
+        await _bot.SendStickerAsync(
             chatId,
             sticker: new InputOnlineFile(TelegramStickersIds.GREAT_LEADER_XI),
             cancellationToken: cancellationToken);
 
-        await BotClient.SendChatActionAsync(chatId, ChatAction.Typing, cancellationToken);
-        await BotClient.SendTextMessageAsync(
+        await _bot.SendChatActionAsync(chatId, ChatAction.Typing, cancellationToken);
+        await _bot.SendTextMessageAsync(
             chatId,
             text: GetGreetingsMessage(command.Message),
             parseMode: ParseMode.MarkdownV2,
             cancellationToken: cancellationToken);
 
-        await BotClient.SendChatActionAsync(chatId, ChatAction.Typing, cancellationToken);
-        await BotClient.SendTextMessageAsync(
+        await _bot.SendChatActionAsync(chatId, ChatAction.Typing, cancellationToken);
+        await _bot.SendTextMessageAsync(
             chatId,
             $"Жать *КНОПКА* вниз для двойной рис порция удар:",
             parseMode: ParseMode.MarkdownV2,
             replyMarkup: new InlineKeyboardMarkup(
-                InlineKeyboardButton.WithCallbackData(">> ПОЛУЧИТЬ НЕФРИТОВЫЙ СТЕРЖЕНЬ XI КАМЕНЬ <<", TelegramCallbackIds.GET_OUTLOOK_APPOINTMENTS)),
+                InlineKeyboardButton.WithCallbackData(">> ПОЛУЧИТЬ НЕФРИТОВЫЙ СТЕРЖЕНЬ XI <<", TelegramCallbackIds.GET_OUTLOOK_APPOINTMENTS)),
             cancellationToken: cancellationToken); ;
 
         return Unit.Value;
@@ -61,6 +61,6 @@ public record TelegramStartCommandHandler(ITelegramBotClient BotClient, ILogger<
         sb.AppendLine("Хотеть чтобы *Великий Xi* вести 中国 к славный Социалистический будущее!");
         sb.AppendLine("Помнить, что ты являться член Партий Китай и обязан вести себя подобающе");
 
-        return sb.ToStringAndEscape();
+        return sb.Escape().ToString();
     }
 }

@@ -3,6 +3,8 @@
 public class OutlookAppointmentDto
 {
     public string Subject { get; init; }
+    
+    public string Location { get; init; }
 
     public DateTime Start { get; init; }
 

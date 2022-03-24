@@ -20,9 +20,7 @@ public record TelegramMessageEvent(Update Payload, ExchangeConfiguration Exchang
 /// <summary>
 /// Handler for incoming Telegram messages
 /// </summary>
-public record TelegramMessageEventHandler(
-    IMediator Mediator, 
-    ILogger<TelegramMessageEventHandler> Logger) : INotificationHandler<TelegramMessageEvent>
+public record TelegramMessageEventHandler(IMediator _mediator, ILogger<TelegramMessageEventHandler> _logger) : INotificationHandler<TelegramMessageEvent>
 {
     public async Task Handle(TelegramMessageEvent @event, CancellationToken cancellationToken)
     {
@@ -39,7 +37,7 @@ public record TelegramMessageEventHandler(
 
     private async Task OnMessageReceivedAsync(Message message)
     {
-        Logger.LogInformation("Receive message from Telegram type: {messageType} {messageText}", message.Type, message.Text);
+        _logger.LogInformation("Receive message from Telegram type: {messageType} {messageText}", message.Type, message.Text);
 
         // ignore all non-text messages for now
         if (message.Type != MessageType.Text)
@@ -47,13 +45,13 @@ public record TelegramMessageEventHandler(
 
         if (message.Text == "/start")
         {
-            await Mediator.Send(new TelegramStartCommand(message));
+            await _mediator.Send(new TelegramStartCommand(message));
         }
     }
 
     private async Task OnCallbackQueryReceivedAsync(CallbackQuery callbackQuery, ExchangeConfiguration exchangeConfiguration)
     {
-        Logger.LogInformation($"Receive callback query from Telegram with payload: {callbackQuery.Data}");
+        _logger.LogInformation($"Receive callback query from Telegram with payload: {callbackQuery.Data}");
 
         // ignore empty callback data
         if (String.IsNullOrEmpty(callbackQuery.Data))
@@ -61,7 +59,7 @@ public record TelegramMessageEventHandler(
 
         if (callbackQuery.Data == TelegramCallbackIds.GET_OUTLOOK_APPOINTMENTS)
         {
-            await Mediator.Send(new TelegramAppointmentsCommand(callbackQuery, exchangeConfiguration));
+            await _mediator.Send(new TelegramAppointmentsCommand(callbackQuery, exchangeConfiguration));
         }
     }
 }
