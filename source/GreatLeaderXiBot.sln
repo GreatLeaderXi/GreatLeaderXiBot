@@ -9,19 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreatLeaderXiBot.Common", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreatLeaderXiBot.Domain", "GreatLeaderXiBot.Domain\GreatLeaderXiBot.Domain.csproj", "{8517180A-ED29-4045-A4ED-7F86615C1CFE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{7332B789-1843-439B-9445-7F8B2747B280}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{DF005921-720B-4895-96EB-CE513FBDDAFF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreatLeaderXiBot.Domain.Core", "GreatLeaderXiBot.Domain.Core\GreatLeaderXiBot.Domain.Core.csproj", "{A2ACF7C2-FDFA-4904-90A0-FF7F6946A6E7}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{B61C6C19-9F05-48DC-9C98-3C1ED30C0B4A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{E62A1B94-BCE4-4501-9333-E2D9CEC63798}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreatLeaderXiBot.Infrastructure", "GreatLeaderXiBot.Infrastructure\GreatLeaderXiBot.Infrastructure.csproj", "{897D790E-BDFB-44E2-AA6C-D78CDCB7DCA1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{0938A137-1336-4D06-AF40-07C598F44F0D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreatLeaderXiBot.Domain.Telegram", "GreatLeaderXiBot.Domain.Telegram\GreatLeaderXiBot.Domain.Telegram.csproj", "{03899F4B-2A3C-4AB0-9CEE-62E32D4DC68D}"
 EndProject
@@ -47,10 +37,6 @@ Global
 		{A2ACF7C2-FDFA-4904-90A0-FF7F6946A6E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2ACF7C2-FDFA-4904-90A0-FF7F6946A6E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2ACF7C2-FDFA-4904-90A0-FF7F6946A6E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B61C6C19-9F05-48DC-9C98-3C1ED30C0B4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B61C6C19-9F05-48DC-9C98-3C1ED30C0B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B61C6C19-9F05-48DC-9C98-3C1ED30C0B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B61C6C19-9F05-48DC-9C98-3C1ED30C0B4A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{897D790E-BDFB-44E2-AA6C-D78CDCB7DCA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{897D790E-BDFB-44E2-AA6C-D78CDCB7DCA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{897D790E-BDFB-44E2-AA6C-D78CDCB7DCA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,14 +48,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{25254CBF-F0AF-430E-B06A-4E2C5B6C568A} = {7332B789-1843-439B-9445-7F8B2747B280}
-		{8517180A-ED29-4045-A4ED-7F86615C1CFE} = {DF005921-720B-4895-96EB-CE513FBDDAFF}
-		{A2ACF7C2-FDFA-4904-90A0-FF7F6946A6E7} = {DF005921-720B-4895-96EB-CE513FBDDAFF}
-		{B61C6C19-9F05-48DC-9C98-3C1ED30C0B4A} = {0938A137-1336-4D06-AF40-07C598F44F0D}
-		{897D790E-BDFB-44E2-AA6C-D78CDCB7DCA1} = {E62A1B94-BCE4-4501-9333-E2D9CEC63798}
-		{03899F4B-2A3C-4AB0-9CEE-62E32D4DC68D} = {DF005921-720B-4895-96EB-CE513FBDDAFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E57E0E6A-46EB-48CD-BC30-A8976BA5862E}

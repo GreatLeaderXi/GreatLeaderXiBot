@@ -10,6 +10,9 @@ using NodaTime;
 
 using Dtos;
 
+// Disable "Nullability of reference types in type of parameter doesn't match the target delegate."
+#pragma warning disable 8622
+
 public class OutlookConnector : IOutlookConnector
 {
     public OutlookConnector()
