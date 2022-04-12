@@ -4,5 +4,5 @@ services:
   greatleaderxibot:
     image: temurka1/greatleaderxibot
     build:
-      context: ./source/
+      context: .
       dockerfile: GreatLeaderXiBot/Dockerfile

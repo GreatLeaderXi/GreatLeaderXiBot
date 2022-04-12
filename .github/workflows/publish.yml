@@ -23,7 +23,7 @@ jobs:
       - name: build&publish docker image
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: source/GreatLeaderXiBot/Dockerfile
+          context: ./source/
+          file: ./source/GreatLeaderXiBot/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/greatleaderxibot:latest
