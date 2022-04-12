@@ -3,6 +3,13 @@ version: '3.4'
 services:
   greatleaderxibot:
     image: temurka1/greatleaderxibot
+    environment:
+      VIRTUAL_HOST: "${VIRTUAL_HOST}"
+      LETSENCRYPT_HOST: "${LETSENCRYPT_HOST}"
+      LETSENCRYPT_EMAIL: "${LETSENCRYPT_EMAIL}"
+    restart: always
+    networks:
+      - proxy
     build:
       context: .
       dockerfile: GreatLeaderXiBot/Dockerfile
