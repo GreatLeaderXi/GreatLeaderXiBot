@@ -35,9 +35,9 @@ public record TelegramAppointmentsCommandHandler(ITelegramBotClient _bot, IConfi
     public async Task<Unit> Handle(TelegramAppointmentsCommand command, CancellationToken cancellationToken)
     {
         var outlookSettings = new OutlookSettings(
-            command.ExchangeConfig.ExchangeHost, 
-            command.ExchangeConfig.ExchangeUsername, 
-            command.ExchangeConfig.ExchangePassword);
+            command.ExchangeConfig.Host, 
+            command.ExchangeConfig.Username, 
+            command.ExchangeConfig.Password);
 
         var userUtcOffset = Offset.FromHours(command.ExchangeConfig.UserUtcOffset);
         var userTimezone = DateTimeZone.ForOffset(userUtcOffset);

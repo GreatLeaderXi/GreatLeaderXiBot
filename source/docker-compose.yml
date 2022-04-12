@@ -7,13 +7,11 @@ networks:
 services:
   greatleaderxibot:
     image: temurka1/greatleaderxibot
-    environment:
-      VIRTUAL_HOST: "${VIRTUAL_HOST}"
-      LETSENCRYPT_HOST: "${LETSENCRYPT_HOST}"
-      LETSENCRYPT_EMAIL: "${LETSENCRYPT_EMAIL}"
     restart: always
     networks:
       - proxy
+    env_file:
+      - ./vars.env
     build:
       context: .
       dockerfile: GreatLeaderXiBot/Dockerfile

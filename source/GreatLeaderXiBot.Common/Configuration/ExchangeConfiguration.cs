@@ -2,11 +2,11 @@
 
 public class ExchangeConfiguration
 {
-    public string ExchangeHost { get; init; } = null!;
+    public string Host { get; init; } = null!;
 
-    public string ExchangeUsername { get; init; } = null!;
+    public string Username { get; init; } = null!;
 
-    public string ExchangePassword { get; init; } = null!;
+    public string Password { get; init; } = null!;
 
     public int UserUtcOffset { get; init; }
 

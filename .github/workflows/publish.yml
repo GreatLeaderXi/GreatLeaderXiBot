@@ -37,31 +37,50 @@ jobs:
     environment: production
     needs: build
     steps:
-      - name: deploy
-        uses: appleboy/ssh-action@master
-        env:
-          VIRTUAL_HOST: ${{ secrets.DEPLOY_HOST }}
-          LETSENCRYPT_HOST: ${{ secrets.DEPLOY_HOST }}
-          LETSENCRYPT_EMAIL: ${{ secrets.LETSENCRYPT_EMAIL }}
+      - name: create .env
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          file_name: vars.env
+          fail_on_empty: true
+
+          # container configuration
+          envkey_VIRTUAL_HOST: ${{ secrets.DEPLOY_HOST }}
+          envkey_LETSENCRYPT_HOST: ${{ secrets.LETSENCRYPT_HOST }}
+          envkey_LETSENCRYPT_EMAIL: ${{ secrets.LETSENCRYPT_EMAIL }}
+
+          # telegram bot configuration
+          envkey_XiBotConfiguration__TelegramConfiguration__Host: ${{ secrets.TELEGRAM_HOST }}
+          envkey_XiBotConfiguration__TelegramConfiguration__Token: ${{ secrets.TELEGRAM_TOKEN }}
+
+          # exchange server configuration
+          envkey_XiBotConfiguration__ExchangeConfiguration__Host: ${{ secrets.EXCHANGE_HOST }}
+          envkey_XiBotConfiguration__ExchangeConfiguration__Username: ${{ secrets.EXCHANGE_USERNAME }}
+          envkey_XiBotConfiguration__ExchangeConfiguration__Password: ${{ secrets.EXCHANGE_PASSWORD }}
+
+          # User timezone settings - we don't care about it much for now
+          envkey_XiBotConfiguration__ExchangeConfiguration__UserUtcOffset: 7
+          envkey_XiBotConfiguration__ExchangeConfiguration__AppointmentsUtcOffset: 7
+      - name: send .env file to deployment server
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           port: 22
-          envs: VIRTUAL_HOST, LETSENCRYPT_HOST, LETSENCRYPT_EMAIL
+          source: "vars.env"
+          target: "envars"
+
+      - name: deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: 22
           script: |
             rm -rf GreatLeaderXiBot
             git clone https://github.com/temurka1/GreatLeaderXiBot.git
+            cp envars/vars.env GreatLeaderXiBot/source
             cd GreatLeaderXiBot/source/
-            docker-compose -f docker-compose.yml -p greatleaderxibot-production pull
-            VIRTUAL_HOST=$VIRTUAL_HOST LETSENCRYPT_HOST=$LETSENCRYPT_HOST LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL docker-compose -f docker-compose.yml -p greatleaderxibot-production up -d --quiet-pull --no-build
-      
-      - name: cleanup
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          port: 22
-          script: |
-            rm -rf GreatLeaderXiBot
+            docker-compose -f docker-compose.yml pull
+            docker-compose -f docker-compose.yml up -d --quiet-pull --no-build
