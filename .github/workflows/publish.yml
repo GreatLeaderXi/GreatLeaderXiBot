@@ -78,9 +78,10 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           port: 22
           script: |
-            rm -rf GreatLeaderXiBot
             git clone https://github.com/temurka1/GreatLeaderXiBot.git
             cp envars/vars.env GreatLeaderXiBot/source
             cd GreatLeaderXiBot/source/
             docker-compose -f docker-compose.yml pull
             docker-compose -f docker-compose.yml up -d --quiet-pull --no-build
+            rm -rf GreatLeaderXiBot
+            rm -rf envars
