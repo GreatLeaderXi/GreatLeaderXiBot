@@ -30,7 +30,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/greatleaderxibot:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/greatleaderxibot:buildcache
+          cache-from: type=registry,ref=${{ sec rets.DOCKER_USERNAME }}/greatleaderxibot:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/greatleaderxibot:buildcache,mode=max
   publish:
     runs-on: ubuntu-latest
@@ -50,7 +50,16 @@ jobs:
           port: 22
           envs: VIRTUAL_HOST, LETSENCRYPT_HOST, LETSENCRYPT_EMAIL
           script: |
-            rm -rf GreatLeaderXiBot
             git clone https://github.com/temurka1/GreatLeaderXiBot.git
             cd GreatLeaderXiBot/source/
-            VIRTUAL_HOST=$VIRTUAL_HOST LETSENCRYPT_HOST=$LETSENCRYPT_HOST LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL docker-compose -f docker-compose.yml -p greatleaderxibot-production up -d
+            VIRTUAL_HOST=$VIRTUAL_HOST LETSENCRYPT_HOST=$LETSENCRYPT_HOST LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL docker-compose --quiet-pull --no-build -f docker-compose.yml -p greatleaderxibot-production up -d
+      
+      - name: cleanup
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: 22
+          script: |
+            rm -rf GreatLeaderXiBot
