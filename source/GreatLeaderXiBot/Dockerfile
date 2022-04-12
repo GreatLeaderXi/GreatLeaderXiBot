@@ -1,7 +1,21 @@
 # build gss-ntlmssp
 FROM alpine as ntlmssp
 RUN apk add --no-cache git curl
-RUN apk add --no-cache make m4 autoconf automake gcc g++ krb5-dev openssl-dev gettext-dev libtool libxml2 libxslt libunistring-dev zlib-dev samba-dev
+RUN apk add --no-cache make \
+    m4 \
+    autoconf \
+    automake \
+    gcc \
+    g++ \
+    krb5-dev \
+    openssl-dev \
+    gettext-dev \
+    libtool \
+    libxml2 \
+    libxslt \
+    libunistring-dev \
+    zlib-dev \
+    samba-dev
 RUN git clone https://github.com/gssapi/gss-ntlmssp
 WORKDIR gss-ntlmssp
 RUN autoreconf -f -i
@@ -20,7 +34,14 @@ ARG BUILDCONFIG=RELEASE
 ARG VERSION=1.0.0
 WORKDIR /source
 COPY . .
-RUN dotnet publish "GreatLeaderXiBot/GreatLeaderXiBot.csproj" -c $BUILDCONFIG -o /app/publish --runtime alpine-x64 --self-contained true /p:Version=$VERSION /p:PublishTrimmed=true /p:PublishSingleFile=true 
+RUN dotnet publish "GreatLeaderXiBot/GreatLeaderXiBot.csproj" \
+    -c $BUILDCONFIG \
+    -o /app/publish \
+    --runtime alpine-x64 \
+    --self-contained true \
+    /p:Version=$VERSION \
+    /p:PublishTrimmed=true \
+    /p:PublishSingleFile=true 
 
 # final
 FROM base AS final
