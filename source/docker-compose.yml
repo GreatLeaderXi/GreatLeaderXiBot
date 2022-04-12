@@ -1,5 +1,9 @@
 version: '3.4'
 
+networks:
+  proxy:
+    external: true
+
 services:
   greatleaderxibot:
     image: temurka1/greatleaderxibot
