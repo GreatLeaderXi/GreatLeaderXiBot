@@ -45,7 +45,7 @@ jobs:
         env:
           VIRTUAL_HOST: ${{ secrets.DEPLOY_HOST }}
           LETSENCRYPT_HOST: ${{ secrets.DEPLOY_HOST }}
-          LETSENCRYPT_EMAIL: ${{ secrets.EMAIL }}
+          LETSENCRYPT_EMAIL: ${{ secrets.LETSENCRYPT_EMAIL }}
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
