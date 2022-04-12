@@ -53,4 +53,4 @@ jobs:
           port: 22
           envs: VIRTUAL_HOST, LETSENCRYPT_HOST, LETSENCRYPT_EMAIL
           script: |
-            VIRTUAL_HOST=$VIRTUAL_HOST LETSENCRYPT_HOST=$LETSENCRYPT_HOST LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL docker-compose -f /source/docker-compose.yml -p greatleaderxibot-production up -d
+            ls -l
