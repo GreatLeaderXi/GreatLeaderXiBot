@@ -52,7 +52,7 @@ jobs:
           script: |
             git clone https://github.com/temurka1/GreatLeaderXiBot.git
             cd GreatLeaderXiBot/source/
-            VIRTUAL_HOST=$VIRTUAL_HOST LETSENCRYPT_HOST=$LETSENCRYPT_HOST LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL docker-compose --quiet-pull --no-build -f docker-compose.yml -p greatleaderxibot-production up -d
+            VIRTUAL_HOST=$VIRTUAL_HOST LETSENCRYPT_HOST=$LETSENCRYPT_HOST LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL docker-compose -f docker-compose.yml -p greatleaderxibot-production up -d --quiet-pull --no-build
       
       - name: cleanup
         uses: appleboy/ssh-action@master
