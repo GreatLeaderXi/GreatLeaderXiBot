@@ -21,12 +21,14 @@ WORKDIR gss-ntlmssp
 RUN autoreconf -f -i
 RUN ./configure --without-manpages --disable-nls
 RUN make install
+RUN touch mech.ntlmssp.conf
+RUN echo "gssntlmssp_v1		1.3.6.1.4.1.311.2.2.10	        /usr/local/lib/gssntlmssp/gssntlmssp.so" > mech.ntlmssp.conf
 
 # base
 FROM mcr.microsoft.com/dotnet/runtime-deps:6.0-alpine AS base
 RUN apk add libwbclient
 COPY --from=ntlmssp /usr/local/lib/gssntlmssp/gssntlmssp.so /usr/local/lib/gssntlmssp/
-COPY mech.ntlmssp.conf /usr/etc/gss/mech.d/
+COPY --from=ntlmssp /gss-ntlmssp/mech.ntlmssp.conf /usr/etc/gss/mech.d/
 
 # publish
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
